@@ -44,19 +44,20 @@ public class Okmanytipus {
     }
 
     private String szemelyiszamEllenorzes(String okmanyszam){
+
         if (okmanyszam.length() != 8){
-            return String.format("Nem megfelelő személyiszám karakterhossz! (%s)", okmanyszam.length());
+            return String.format("Nem megfelelő %s karakterhossz! (%s)", this.ertek, okmanyszam.length());
         }
         else {
             String elsoHatKarakter = okmanyszam.substring(0, 6);
-            String utolsoKetKArakter = okmanyszam.substring(6, 8);
+            char[] utolsoKetKArakter = okmanyszam.substring(6, 8).toCharArray();
 
             if (!StringUtils.isNumeric(elsoHatKarakter) ||
                     elsoHatKarakter.length() != 6 ||
-                    StringUtils.isNumeric(utolsoKetKArakter) ||
-                    utolsoKetKArakter.length() != 2
-            ){
-                return "Invalid szemelyi igazolvany szam!: " + okmanyszam;
+                    Character.isDigit(utolsoKetKArakter[0]) ||
+                    Character.isDigit(utolsoKetKArakter[1]))
+            {
+                return String.format("Invalid %s !: %s", this.ertek, okmanyszam);
             }
         }
         return "";
