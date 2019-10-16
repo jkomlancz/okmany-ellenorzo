@@ -3,15 +3,15 @@
  "rows": [
   {
    "kod": "1",
-   "ertek": "Személyazonosító igazolvány",
+   "ertek": "Személyazonosító igazolvány"
   },
   {
    "kod": "2",
-   "ertek": "Útlevél",
+   "ertek": "Útlevél"
   },
   {
    "kod": "3",
-   "ertek": "Vezetői engedély",
+   "ertek": "Vezetői engedély"
   },
   {
    "kod": "4",
@@ -19,11 +19,11 @@
   },
   {
    "kod": "5",
-   "ertek": "EGT által elfogadott egyéb okmány",
+   "ertek": "EGT által elfogadott egyéb okmány"
   },
   {
    "kod": "6",
-   "ertek": "Ideiglenes személyazonosító igazolvány",
+   "ertek": "Ideiglenes személyazonosító igazolvány"
   }
  ]
 }

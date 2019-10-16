@@ -6,5 +6,5 @@ import java.io.IOException;
 import java.util.List;
 
 public interface ValidatorBean {
-    List<String> ellenorzes(OkmanyDTO adat) throws IOException;
+    List<String> ellenorzes(List<OkmanyDTO> okmanyok) throws IOException;
 }
