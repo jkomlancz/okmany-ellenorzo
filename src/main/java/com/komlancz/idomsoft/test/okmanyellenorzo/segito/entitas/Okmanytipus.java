@@ -4,8 +4,9 @@ import org.apache.commons.lang3.StringUtils;
 
 public class Okmanytipus {
 
-    private static final String SZEMELYI_IGAZOLVANY_TIPUS = "1";
+    private static final String SZEMELYI_IG_TIPUS = "1";
     private static final String UTLEVEL_TIPUS = "2";
+    private static final String VEZETOI_ENG_TIPUS = "3";
 
     private String kod;
     private String ertek;
@@ -37,13 +38,24 @@ public class Okmanytipus {
     public String okmanyszamEllenorzes(String okmanyszam){
 
         switch (this.kod){
-            case SZEMELYI_IGAZOLVANY_TIPUS:
+            case SZEMELYI_IG_TIPUS:
                 return szemelyiszamEllenorzes(okmanyszam);
 
             case UTLEVEL_TIPUS:
                 return utlevelszamEllenorzes(okmanyszam);
-        }
 
+            // Nem volt hozza definicio, minek kell megfelelniuk a 4, 5, 6 kodu okmanyoknak, ezert kozosen kezeltem oket
+            default:
+                return egyebSzamEllenorzes(okmanyszam);
+        }
+    }
+
+    private String egyebSzamEllenorzes(String okmanyszam){
+
+        if (okmanyszam.length() != 10){
+
+            return String.format("Nem megfelelő %s karakterhossz! (%s)", this.ertek, okmanyszam.length());
+        }
         return "";
     }
 
