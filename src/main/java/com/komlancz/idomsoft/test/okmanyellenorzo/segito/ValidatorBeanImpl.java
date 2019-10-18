@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,13 +31,33 @@ public class ValidatorBeanImpl implements ValidatorBean {
     @Override
     public List<String> ellenorzes(List<OkmanyDTO> okmanyok) throws IOException {
         List<String> hibak = new ArrayList<>();
+        List<String> ervenyesOkmanytipusAzonositok = new ArrayList<>();
 
         for (OkmanyDTO okmany : okmanyok){
+            // okmany tipusat rogzitjuk ezzel elerve a pontos nevet
             Okmanytipus okmanytipus = okmanyTipusEllenorzes(hibak, okmany.getOkmTipus(), okmany.getOkmanySzam());
             okmanyKepMeretEllenorzes(hibak, okmany.getOkmanyKep(), okmanytipus.getErtek());
+            okmanyErvenyessegEllenorzes(ervenyesOkmanytipusAzonositok, hibak, okmanytipus.getErtek(), okmany);
         }
 
         return hibak;
+    }
+
+    private void okmanyErvenyessegEllenorzes(List<String> ervenyesOkmanytipusAzonositok, List<String> hibak, String okmanytipus, OkmanyDTO okmany){
+
+        if (new Date().after(okmany.getLejarDat())) {
+            okmany.setErvenyes(false);
+            hibak.add(String.format("%s érvényessége lejárt ekkor: %s", okmanytipus, okmany.getLejarDat()));
+        }
+        else {
+            if (ervenyesOkmanytipusAzonositok.contains(okmany.getOkmTipus())){
+                hibak.add(String.format("%s okmanytipusbol több érvényes is érkezett, de csak 1 lehet!", okmanytipus));
+            }
+            else {
+                okmany.setErvenyes(true);
+                ervenyesOkmanytipusAzonositok.add(okmany.getOkmTipus());
+            }
+        }
     }
 
     private void okmanyKepMeretEllenorzes(List<String> hibak, byte[] kepByte, String okmanytipus) throws IOException {
