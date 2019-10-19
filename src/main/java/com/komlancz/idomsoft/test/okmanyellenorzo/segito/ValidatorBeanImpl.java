@@ -91,19 +91,33 @@ public class ValidatorBeanImpl implements ValidatorBean {
 
     private Okmanytipus okmanyTipusEllenorzes(List<String> hibak, String okmanytipus, String okmanyszam) throws IOException {
 
-        JsonNode okmanytipusKodSzotar = kodszotarFelolvasasa(OKMANY_TIPUS_KODSZOTAR_FAJLNEV);
-        List<Okmanytipus> okmanytipusok = okmanytipusokMappalese(okmanytipusKodSzotar);
-
-        Optional<Okmanytipus> talalat = okmanytipusok.stream().filter(o -> o.getKod().equals(okmanytipus)).findFirst();
-
-        if (talalat.isPresent()){
-            String talaltHiba = talalat.get().okmanyszamEllenorzes(okmanyszam);
-
-            if (StringUtils.isNotBlank(talaltHiba)){
-                hibak.add(talaltHiba);
-            }
-            return talalat.get();
+        if (okmanytipus == null){
+            hibak.add("Okmánytípus üres!");
         }
+        else if (okmanytipus.length() > 1){
+            hibak.add(String.format("Okmánytípus túl hosszú (%s)! Maximum hossz: 1", okmanytipus));
+        }
+        else
+        {
+            JsonNode okmanytipusKodSzotar = kodszotarFelolvasasa(OKMANY_TIPUS_KODSZOTAR_FAJLNEV);
+            List<Okmanytipus> okmanytipusok = okmanytipusokMappalese(okmanytipusKodSzotar);
+
+            Optional<Okmanytipus> talalat = okmanytipusok.stream().filter(o -> o.getKod().equals(okmanytipus)).findFirst();
+
+            if (talalat.isPresent()){
+                String talaltHiba = talalat.get().okmanyszamEllenorzes(okmanyszam);
+
+                if (StringUtils.isNotBlank(talaltHiba)){
+                    hibak.add(talaltHiba);
+                }
+                return talalat.get();
+            }
+            else
+            {
+                hibak.add("Nem ismert okmanytipus!");
+            }
+        }
+
         // Abban az esetben, ha az ellenorzés sikertelen
         return new Okmanytipus("-1", "Nem ismert okmanytipus");
     }

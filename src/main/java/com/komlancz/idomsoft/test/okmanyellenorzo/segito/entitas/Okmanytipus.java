@@ -72,7 +72,7 @@ public class Okmanytipus {
                 Character.isDigit(elsoKetKarakter[1])||
                 !StringUtils.isNumeric(utolsoHetKarakter))
         {
-            return String.format("Invalid %s !: %s", this.ertek, okmanyszam);
+            return String.format("Invalid %s!: %s", this.ertek, okmanyszam);
         }
         return "";
     }
@@ -90,7 +90,7 @@ public class Okmanytipus {
                 Character.isDigit(utolsoKetKArakter[0]) ||
                 Character.isDigit(utolsoKetKArakter[1]))
         {
-            return String.format("Invalid %s !: %s", this.ertek, okmanyszam);
+            return String.format("Invalid %s!: %s", this.ertek, okmanyszam);
         }
         return "";
     }
