@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.komlancz.idomsoft.test</groupId>
 	<artifactId>okmany-ellenorzo</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.2</version>
 	<name>okmany-ellenorzo</name>
 	<description>OkmanyDTO adatait hivatott ellenorizni</description>
 	<packaging>war</packaging>
